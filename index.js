@@ -12,16 +12,15 @@ const app = express();
 //Configure CORS
 app.use( cors() );
 
+//Reading and parsing of information in the body
+app.use(express.json());
+
 //Conexion a la base de datos
 dbConnection();
 
 //Routes
-app.get( '/', (req, res) => {
-    res.json({
-        ok: true,
-        message: 'Hola mundo'
-    });
-});
+app.use( '/api/clients', require('./Routes/clients.routes'));
+app.use( '/api/login', require('./Routes/auth.routes'));
 
 
 app.listen( process.env.PORT, () => {
