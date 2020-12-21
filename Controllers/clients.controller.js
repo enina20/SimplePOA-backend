@@ -2,20 +2,38 @@
 const { response } = require('express');
 const bcrypt = require('bcryptjs');
 
-const Client = require('../models/clients.models');
+const Client = require('../models/usuarios.models');
 const { generateJWT } = require('../Helpers/jwt');
 
 
 const getClients = async (req, res) => {
 
-    const clients = await Client.find({}, 'name email role');
+    let desde = Number(req.query.desde) || 0;
+    let limite =  Number( req.query.limite) || 5;
+
+    const [clients, total] = await Promise.all([
+        Client.find({}, 'name email role')
+                                .skip(desde)
+                                .limit(limite),
+
+        Client.countDocuments()
+    ]);
+
     res.json({
         ok: true,
-        clients
+        clients,
+        total
     });
 }
 
 const getClientById = async (req, res) => {
+    if(!mongoose.Types.ObjectId.isValid(promId)) {
+        res.status(400).json({ 
+            ok: false,            
+            message: 'El id no es valido'
+        });  
+
+    }
 
     const clients = await Client.find({}, 'name email role');
     res.json({
@@ -65,6 +83,12 @@ const createClients = async (req, res = response ) => {
 const updateClient = async (req, res = response) => {
 
     const uid = req.params.id;
+    // if(!mongoose.Types.ObjectId.isValid(uid)) {
+    //     res.status(400).json({ 
+    //         ok: false,            
+    //         message: 'El id no es valido'
+    //     }); 
+    // }
 
     try {
 
