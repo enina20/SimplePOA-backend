@@ -20,11 +20,10 @@ const getPrograma = async (req, res) => {
 };
 
 const createPrograma = async (req, res = response) => {
-  const { name } = req.body;
-  console.log(name);
+  const { codigo } = req.body;
 
   try {
-    const nameExists = await Programa.findOne({ name });
+    const nameExists = await Programa.findOne({ codigo });
 
     if (nameExists) {
       return res.status(400).json({

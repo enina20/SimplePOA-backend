@@ -12,24 +12,24 @@ const {
   updatePrograma,
   deletePrograma,
 } = require("../Controllers/programas.controller");
-const { validateJWT } = require("../Middlewares/validate-jwt");
+const { } = require("../Middlewares/validate-jwt");
 
 const router = Router();
 
-router.get("/", validateJWT, getPrograma);
+router.get("/",  getPrograma);
 
 router.post(
-  "/",
-  [
-    validateJWT,
-    check("name", "El nombre del programa es necesario").not().isEmpty(),
+  "/",  [
+    
+    check("responsable", "El nombre del programa es necesario").not().isEmpty(),
+    check("detalle", "La unidad ejecutora del programa es necesario").not().isEmpty(),
     validateInformation,
   ],
   createPrograma
 );
 
-router.put("/:id", validateJWT, updatePrograma);
+router.put("/:id",  updatePrograma);
 
-router.delete("/:id", validateJWT, deletePrograma);
+router.delete("/:id",  deletePrograma);
 
 module.exports = router;

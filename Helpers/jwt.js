@@ -9,7 +9,7 @@ const generateJWT = (uid) => {
       payload,
       process.env.JWT_SEED,
       {
-        expiresIn: "12h",
+        expiresIn: "1500h",
       },
       (err, token) => {
         if (err) {

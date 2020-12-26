@@ -2,6 +2,8 @@ const fs = require("fs");
 const Client = require("../models/usuarios.models");
 const Employee = require("../models/employees.models");
 const Unidad = require("../models/executingUnit.models");
+const mongoose = require("mongoose");
+const { response } = require("express");
 
 const deletePreviousImage = (path) => {
   if (fs.existsSync(path)) {
@@ -9,37 +11,39 @@ const deletePreviousImage = (path) => {
   }
 };
 
-const updateImage = async (coleccion, id, path, fileName) => {
-  switch (coleccion) {
-    case "clients":
-      const client = await Client.findById(id);
+const updateImage = async (id, fileName, res = response) => {
+  console.log(id, fileName);
+  console.log("#########");
+  console.log(id, mongoose.Types.ObjectId.isValid(id));
+  console.log("***************************************");
+  const client = await Client.findById(id);
+  console.log("****", client.name);
 
-      if (!client) {
-        console.log("No existe un cliente con ese id");
-        return false;
-      }
+  console.log("***************************************");
 
-      const pathPrevius = `./Uploads/clients/${client.imgUrl}`;
+  try {
+    const client = await Client.findById(id);
 
-      deletePreviousImage(pathPrevius);
+    if (!client) {
+      console.log("No existe un cliente con ese id");
+      return false;
+    }
 
-      client.imgUrl = fileName;
+    const pathPrevius = `./Uploads/usuarios/${client.imagen}`;
 
-      await client.save();
-      return true;
-      break;
-    case "unidades":
-      break;
+    console.log("anterior", pathPrevius);
 
-    case "empleados":
-      break;
+    deletePreviousImage(pathPrevius);
 
-    default:
-      res.status(400).json({
-        ok: false,
-        message: "Error en las colecciones",
-      });
-      break;
+    client.imagen = fileName;
+
+    await client.save();
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      message: "Error en la base de datos",
+    });
   }
 };
 

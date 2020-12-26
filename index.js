@@ -21,10 +21,11 @@ dbConnection();
 app.use(express.static("public"));
 
 //Routes
-app.use("/api/usuarios", require("./Routes/clients.routes"));
+app.use("/api/usuarios", require("./Routes/usuarios.routes"));
 app.use("/api/empleados", require("./Routes/employees.routes"));
 app.use("/api/unidades", require("./Routes/unidades.routes"));
 app.use("/api/programas", require("./Routes/programas.routes"));
+app.use("/api/acciones", require("./Routes/acciones.routes"));
 app.use("/api/proyectos", require("./Routes/proyectos.routes"));
 app.use("/api/login", require("./Routes/auth.routes"));
 app.use("/api/buscar", require("./Routes/search.routes"));

@@ -10,7 +10,7 @@ const fileUploads = (req, res = response) => {
   const coleccion = req.params.coleccion;
 
   //Validar la collecion
-  const collecctions = ["clients", "unidades", "empleados"];
+  const collecctions = ["usuarios"];
 
   if (!collecctions.includes(coleccion)) {
     return res.status(400).json({
@@ -50,6 +50,7 @@ const fileUploads = (req, res = response) => {
 
   //Path para guardar la imagen
   const path = `./Uploads/${coleccion}/${fileName}`;
+  console.log(path);
 
   //Mover la imagen
   file.mv(path, (err) => {
@@ -61,8 +62,10 @@ const fileUploads = (req, res = response) => {
       });
     }
 
+    console.log("daniela ===>  ", id);
+
     //Actualizar imagen
-    updateImage(coleccion, id, path, fileName);
+    updateImage(id, path, fileName);
 
     res.json({
       ok: true,

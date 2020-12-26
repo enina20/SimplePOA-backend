@@ -12,7 +12,7 @@ const ExecutingUnitSchema = Schema(
       default: true,
     },
     manager: {
-      required: true,
+      required: false,
       type: Schema.Types.ObjectId,
       ref: "Employee",
     },

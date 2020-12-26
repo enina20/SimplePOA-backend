@@ -1,22 +1,27 @@
 const { Schema, model } = require("mongoose");
 
 const ProyectoSchema = Schema({
-  name: {
+
+  poa: {
     type: String,
     required: true,
-    unique: true,
-  },
-  status: {
-    type: Boolean,
-    default: true,
+    default: "002",
   },
   politica: {
     type: String,
     default: "1",
   },
-  ACD: {
+  acp: {
     type: String,
     default: "203",
+  },
+  programa: {
+    type: String,
+    default: "001",
+  },
+  proyecto: {
+    type: String,
+    default: "001",
   },
   actividad: {
     type: String,
@@ -26,16 +31,33 @@ const ProyectoSchema = Schema({
     type: String,
     default: "Servicios de administracion consejo municipal",
   },
-  fecha_inicio: {
+  inicio: {
     type: String,
+    default: "12/12/12",
   },
-  fecha_fin: {
+  fin: {
     type: String,
+    default: "15/15/15",
   },
   presupuesto: {
     required: true,
     type: String,
   },
+  encargado: {
+    type: String,
+    required: true,
+    default: "Edson",
+  },
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  status: {
+    type: Boolean,
+    default: true,
+  },
+  
 });
 
 ProyectoSchema.method("toJSON", function () {

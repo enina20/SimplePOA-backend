@@ -12,16 +12,15 @@ const {
   updateUnidad,
   deleteUnidad,
 } = require("../Controllers/unidades.controller");
-const { validateJWT } = require("../Middlewares/validate-jwt");
+const {} = require("../Middlewares/validate-jwt");
 
 const router = Router();
 
-router.get("/", validateJWT, getUnidades);
+router.get("/", getUnidades);
 
 router.post(
   "/",
   [
-    validateJWT,
     check("name", "El nombre de la Unidad ejecutora es necesaria")
       .not()
       .isEmpty(),
@@ -30,8 +29,8 @@ router.post(
   createUnidades
 );
 
-router.put("/:id", validateJWT, updateUnidad);
+router.put("/:id", updateUnidad);
 
-router.delete("/:id", validateJWT, deleteUnidad);
+router.delete("/:id", deleteUnidad);
 
 module.exports = router;

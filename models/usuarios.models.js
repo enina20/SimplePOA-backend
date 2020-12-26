@@ -13,17 +13,50 @@ const UsuarioSchema = Schema({
     type: String,
     required: true,
   },
+  cedula: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  celular: {
+    type: String,
+  },
+  genero: {
+    type: String,
+  },
+  fecha: {
+    type: String,
+  },
+  unidad: {
+    type: Number,
+    required: true,
+  },
+  puesto: {
+    type: String,
+    required: true,
+  },
+  direccion: {
+    type: String,
+    required: true,
+  },
+  programa: {
+    type: String,
+    // required: true,
+  },
+  proyecto: {
+    type: String,
+    // required: true,
+  },  
+  role: {
+    type: String,
+    default: 'Usuario'
+  },
+  imagen: {
+    type: String,
+  },
   status: {
     type: Boolean,
     default: true,
-  },
-  google: {
-    type: Boolean,
-    default: false,
-  },
-  role: {
-    type: String,
-    default: "USER_ROLE",
   },
 });
 

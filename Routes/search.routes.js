@@ -6,13 +6,17 @@ const { Router } = require("express");
 
 const {
   getBusqueda,
-  getBusquedaPorColeccion,
+  getBusquedaTotal,
+  getBusquedaPorProyectos
 } = require("../Controllers/search.controller");
-const { validateJWT } = require("../Middlewares/validate-jwt");
+
+
+const { } = require("../Middlewares/validate-jwt");
 
 const router = Router();
 
-router.get("/:termino", validateJWT, getBusqueda);
-router.get("/:coleccion/:termino", validateJWT, getBusquedaPorColeccion);
+router.get("/:termino",  getBusqueda);
+router.get("/proyecto/:termino",  getBusquedaPorProyectos);
+router.get("/total/:termino",  getBusquedaTotal);
 
 module.exports = router;

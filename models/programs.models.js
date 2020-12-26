@@ -1,30 +1,41 @@
 const { Schema, model } = require("mongoose");
 
 const ProgramaSchema = Schema({
-  name: {
+
+  codigo:{
+    type: String,
+    default: "001",
+  },
+  responsable: {
     type: String,
     required: true,
     unique: true,
   },
-  direccion: {
+  detalle: {
     type: String,
-    default: "Consejo municipal",
+    required: true,
+  },   
+  estado: {
+    type: String,
+    default: "pendiente",
   },
+  fecha: {
+    type: String,
+    default: "12/12/12",
+  },
+  unidad:{
+    type: String,
+    required: true,
+    default: "Concejo municipal",    
+  },
+  proyecto: {
+    type: String,
+    default: "Aplicaion web",
+  },  
   status: {
     type: Boolean,
     default: true,
-  },
-  fondo: {
-    type: String,
-    default: "Fondo de funcionamiento",
-  },
-  tipo: {
-    type: String,
-    default: "Funcionamiento",
-  },
-  proyectos: {
-    type: String,
-  },
+  }
 });
 
 module.exports = model("Programa", ProgramaSchema);

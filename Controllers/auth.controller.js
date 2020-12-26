@@ -4,7 +4,11 @@ const bcrypt = require("bcryptjs");
 const Client = require("../models/usuarios.models");
 const { generateJWT } = require("../Helpers/jwt");
 const { googleVerify } = require("../Helpers/google-verify");
+const { getSideBar } = require("../Helpers/sidebar-frontend");
 
+///////////////////////////////////////////////////
+//   LOGIN DEL USUARIO
+///////////////////////////////////////////////////
 const login = async (req, res = response) => {
   const { email, password } = req.body;
 
@@ -33,7 +37,9 @@ const login = async (req, res = response) => {
 
     res.json({
       ok: true,
+      clientDB,
       token,
+      sidebar: getSideBar(clientDB.role, clientDB.unidad),
     });
   } catch (error) {
     console.log(error);
@@ -44,48 +50,24 @@ const login = async (req, res = response) => {
   }
 };
 
-const googleSignIn = async (req, res = response) => {
-  const googleToken = req.body.token;
-  try {
-    const { name, email, picture } = await googleVerify(googleToken);
+///////////////////////////////////////////////////
+//   VALIDAR EL TOKEN DEL USUARIO
+///////////////////////////////////////////////////
+const validarToken = async (req, res = response) => {
+  const uid = req.uid;
+  const token = await generateJWT(uid);
 
-    //Buscar al usuario
-    const clientDB = await Client.findOne({ email });
+  const client = await Client.findById(uid);
 
-    let client;
-    //Verificar si no existe,
-    if (!clientDB) {
-      client = new Client({
-        name,
-        email,
-        password: "123",
-        imgUrl: picture,
-        google: true,
-      });
-    } else {
-      //si existe
-      (client = clientDB), (client.google = true);
-    }
-
-    //Guardar en la base de datos
-    await client.save();
-
-    //Generate token
-    const token = await generateJWT(client.id);
-
-    res.json({
-      ok: true,
-      token,
-    });
-  } catch (error) {
-    res.status(401).json({
-      ok: false,
-      message: "token invalido",
-    });
-  }
+  res.json({
+    ok: true,
+    token,
+    client,
+    sidebar: getSideBar(client.role, client.unidad),
+  });
 };
 
 module.exports = {
   login,
-  googleSignIn,
+  validarToken,
 };
