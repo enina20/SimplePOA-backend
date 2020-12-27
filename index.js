@@ -1,4 +1,5 @@
 require("dotenv").config();
+const path = require('path');
 
 const express = require("express");
 const cors = require("cors");
@@ -30,6 +31,11 @@ app.use("/api/proyectos", require("./Routes/proyectos.routes"));
 app.use("/api/login", require("./Routes/auth.routes"));
 app.use("/api/buscar", require("./Routes/search.routes"));
 app.use("/api/subir", require("./Routes/uploads.routes"));
+
+
+app.get('*', (req, res) => {
+  res.sendFile( path.resolve( __dirname, 'public/index.html'));
+});
 
 app.listen(process.env.PORT, () => {
   console.log("Servidor corriendo en puerto " + process.env.PORT);
