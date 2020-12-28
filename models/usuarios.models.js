@@ -7,7 +7,6 @@ const UsuarioSchema = Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   password: {
     type: String,
@@ -16,7 +15,6 @@ const UsuarioSchema = Schema({
   cedula: {
     type: String,
     required: true,
-    unique: true,
   },
   celular: {
     type: String,
@@ -28,7 +26,7 @@ const UsuarioSchema = Schema({
     type: String,
   },
   unidad: {
-    type: Number,
+    type: String,
     required: true,
   },
   puesto: {

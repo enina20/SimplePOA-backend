@@ -18,16 +18,7 @@ const router = Router();
 
 router.get("/", getUnidades);
 
-router.post(
-  "/",
-  [
-    check("name", "El nombre de la Unidad ejecutora es necesaria")
-      .not()
-      .isEmpty(),
-    validateInformation,
-  ],
-  createUnidades
-);
+router.post("/", createUnidades);
 
 router.put("/:id", updateUnidad);
 

@@ -11,12 +11,15 @@ const {
   createProyectos,
   updateProyecto,
   deleteProyecto,
+  getProyectoById
 } = require("../Controllers/proyectos.controller");
 const { validateJWT } = require("../Middlewares/validate-jwt");
 
 const router = Router();
 
 router.get("/", getProyectos);
+
+router.get("/:id", getProyectoById);
 
 router.post(
   "/",

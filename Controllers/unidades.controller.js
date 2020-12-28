@@ -1,34 +1,26 @@
 const { response } = require("express");
+const { agregarUnidad } = require("../Helpers/sidebar-frontend");
 
 const Unidad = require("../models/executingUnit.models");
 
 const getUnidades = async (req, res) => {
-  const unidades = await Unidad.find();
+
+  const [unidades, total] = await Promise.all([
+    Unidad.find({ status: true }),
+    Unidad.countDocuments(),
+  ]);
 
   res.json({
     ok: true,
     unidades,
+    total
   });
 };
 
-const createUnidades = async (req, res = response) => {
-  const { name } = req.body;
+const createUnidades = async (req, res = response) => {  
 
-  try {
-    const nameExists = await Unidad.findOne({ name });
-
-    if (nameExists) {
-      return res.status(400).json({
-        ok: false,
-        message: "La unidad ya esta registrada",
-      });
-    }
-
-    const unidad = new Unidad({
-      manager: req.uid,
-      ...req.body,
-    });
-
+  try {    
+    const unidad = new Unidad(req.body);
     const unidadBD = await unidad.save();
 
     res.json({

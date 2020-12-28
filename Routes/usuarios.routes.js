@@ -13,12 +13,11 @@ const {
   getUsuarioById,
 } = require("../Controllers/usuarios.controller");
 const {} = require("../Middlewares/validate-jwt");
-const { validarToken } = require("../Controllers/auth.controller");
 
 const router = Router();
 
 router.get("/", getUsuarios);
-router.get("/:id", validarToken, getUsuarioById);
+router.get("/:id", getUsuarioById);
 
 router.post(
   "/",

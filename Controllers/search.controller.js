@@ -34,6 +34,25 @@ const getBusquedaPorProyectos = async (req, res = response) => {
   });
 };
 
+const getUnidadEjecutora = async (req, res) => {
+  const unidad = req.params.termino;  
+
+  const unidades = await Unidad.findOne({unidad});
+  res.json({
+    ok: true,
+    unidades,
+  });
+};
+
+const getProyectosUnidadEjecutora = async (req, res) => {
+  const termino = req.params.termino;
+  const proyectos = await Proyecto.find({name: termino});
+  res.json({
+    ok: true,
+    proyectos,
+  });
+};
+
 const getBusquedaTotal = async (req, res = response) => {
   const termino = req.params.termino;
   const regex = new RegExp(termino, "i");
@@ -54,4 +73,6 @@ module.exports = {
   getBusqueda,
   getBusquedaTotal,
   getBusquedaPorProyectos,
+  getUnidadEjecutora,
+  getProyectosUnidadEjecutora
 };

@@ -39,7 +39,6 @@ const login = async (req, res = response) => {
       ok: true,
       clientDB,
       token,
-      sidebar: getSideBar(clientDB.role, clientDB.unidad),
     });
   } catch (error) {
     console.log(error);
@@ -62,8 +61,7 @@ const validarToken = async (req, res = response) => {
   res.json({
     ok: true,
     token,
-    client,
-    sidebar: getSideBar(client.role, client.unidad),
+    client
   });
 };
 

@@ -14,7 +14,6 @@ const getUsuarios = async (req, res) => {
 
   const [usuarios, total] = await Promise.all([
     Client.find({ status: true }).limit(limite).skip(desde),
-
     Client.countDocuments(),
   ]);
 
@@ -32,13 +31,14 @@ const getUsuarios = async (req, res) => {
 ///////////////////////////////////////////////////
 const getUsuarioById = async (req, res) => {
   const uid = req.params.id;
+  console.log('uid ===> ',uid);
   if (!mongoose.Types.ObjectId.isValid(uid)) {
     res.status(400).json({
       ok: false,
       message: "El id no es valido",
     });
   }
-
+  console.log(uid);
   const usuario = await Client.findById(uid);
   res.json({
     ok: true,

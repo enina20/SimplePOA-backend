@@ -71,8 +71,7 @@ const getSideBar = (role = "usuario", id = 1) => {
     {
       id: 5,
       name: "Personal y usuarios",
-      icono:
-        "https://img.icons8.com/color/50/000000/registration-skin-type-7.png",
+      icono: "https://img.icons8.com/color/50/000000/registration-skin-type-7.png",
 
       item: "1",
       subprograma: [{ name: "Listado", ruta: "listado" }],

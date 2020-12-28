@@ -2,28 +2,55 @@ const { Schema, model } = require("mongoose");
 
 const ExecutingUnitSchema = Schema(
   {
-    name: {
+
+    nombre:{
       type: String,
-      required: true,
-      unique: true,
+      default: 'Administrativos Centrales'
+    },
+    direccion: {
+      type: String,
+      default: 'Concejo Municipal'
+    },
+    unidad:{
+      type: String,
+      default: 'Administración Concejo Municipal'
+    },
+    fondo: {
+      type: String,
+      default: 'Fondo de funcionamiento'
+    },
+    tipoope: {
+      type: String,
+      default: 'Funcionamiento'
+    },   
+    manager: {
+      type: String,
+      default: 'Daniela Marca'
+    },
+    link: {
+      type: String,
+      default: 'aqui va el link'
+    },
+    numdireccion:{
+      type: Number,
+      default: 2
+    },   
+    numunidad:{
+      type: Number,
+      default: 1
+    },
+    numfondo:{
+      type: Number,
+      default: 2
+    },
+    numtipo:{
+      type: Number,
+      default: 2
     },
     status: {
       type: Boolean,
       default: true,
-    },
-    manager: {
-      required: false,
-      type: Schema.Types.ObjectId,
-      ref: "Employee",
-    },
-    employees: {
-      type: Number,
-      default: 12,
-    },
-    programs: {
-      type: String,
-      default: "10",
-    },
+    },    
   },
   { collection: "unidades" }
 );

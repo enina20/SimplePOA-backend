@@ -1,4 +1,5 @@
 const { response } = require("express");
+const mongoose = require("mongoose");
 const Proyecto = require("../models/proyectos.models");
 
 const getProyectos = async (req, res) => {
@@ -7,6 +8,21 @@ const getProyectos = async (req, res) => {
   res.json({
     ok: true,
     proyectos,
+  });
+};
+
+const getProyectoById = async (req, res) => {
+  const proyId = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(proyId)) {
+    res.status(400).json({
+      ok: false,
+      message: "El id no es valido",
+    });
+  }
+  const proyecto = await Proyecto.findById(proyId);
+  res.json({
+    ok: true,
+    proyecto,
   });
 };
 
@@ -40,18 +56,16 @@ const updateProyecto = async (req, res = response) => {
         message: "No existe el proyecto en la base de datos",
       });
     }
-
-    // Unidad update
     const fields = req.body;
-
     const updatedProyecto = await Proyecto.findByIdAndUpdate(proyId, fields, {
       new: true,
     });
 
     res.json({
       ok: true,
-      unidad: updatedProyecto,
+      proyecto: updatedProyecto,
     });
+
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -65,7 +79,6 @@ const deleteProyecto = async (req, res = response) => {
   const proyId = req.params.id;
 
   try {
-    // Delete client
     let changeStatus = {
       status: false,
     };
@@ -93,4 +106,5 @@ module.exports = {
   createProyectos,
   updateProyecto,
   deleteProyecto,
+  getProyectoById
 };

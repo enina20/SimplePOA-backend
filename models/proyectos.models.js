@@ -33,25 +33,20 @@ const ProyectoSchema = Schema({
   },
   inicio: {
     type: String,
-    default: "12/12/12",
   },
   fin: {
-    type: String,
-    default: "15/15/15",
+    type: String
   },
   presupuesto: {
-    required: true,
     type: String,
   },
   encargado: {
     type: String,
-    required: true,
-    default: "Edson",
+    default: "Edson Nina",
   },
   name: {
     type: String,
     required: true,
-    unique: true,
   },
   status: {
     type: Boolean,
