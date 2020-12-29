@@ -8,7 +8,9 @@ const {
   getBusqueda,
   getBusquedaTotal,
   getBusquedaPorProyectos,
-  getUnidadEjecutora, getProyectosUnidadEjecutora
+  getUnidadEjecutora, 
+  getProyectosUnidadEjecutora,
+  getUsuarioPorUnidadEjecutora
 } = require("../Controllers/search.controller");
 
 
@@ -21,5 +23,6 @@ router.get("/proyecto/:termino",  getBusquedaPorProyectos);
 router.get("/total/:termino",  getBusquedaTotal);
 router.get("/unidad/:termino",  getUnidadEjecutora);
 router.get("/ejecutora/:termino",  getProyectosUnidadEjecutora);
+router.get("/filtrar/proyecto/:termino",  getUsuarioPorUnidadEjecutora);
 
 module.exports = router;

@@ -34,6 +34,17 @@ const getBusquedaPorProyectos = async (req, res = response) => {
   });
 };
 
+const getUsuarioPorUnidadEjecutora = async (req, res) => {
+
+    const termino = req.params.termino;
+    const clients = await Client.find({unidad: termino});
+    res.json({
+      ok: true,
+      clients,
+    });
+  };
+  
+
 const getUnidadEjecutora = async (req, res) => {
   const unidad = req.params.termino;  
 
@@ -75,5 +86,6 @@ module.exports = {
   getBusquedaTotal,
   getBusquedaPorProyectos,
   getUnidadEjecutora,
-  getProyectosUnidadEjecutora
+  getProyectosUnidadEjecutora,
+  getUsuarioPorUnidadEjecutora
 };
