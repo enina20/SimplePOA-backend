@@ -5,7 +5,10 @@ const AccionSchema = Schema({
   detalle: {
     type: String,
     default: "Servicios de administracion consejo municipal",
-    required: false,
+    // required: false,
+  },
+  unidad: {
+    type: String,
   },
   estado: {
     type: String,
@@ -15,10 +18,14 @@ const AccionSchema = Schema({
     type: String,
     default: "Jose Luis Perales"
   },
-  fecha: {
+  inicio: {
     type: String,
-    default: "15/15/15"
-  },    
+    default: "01/01/21"
+  },   
+  fin: {
+    type: String,
+    default: "01/12/21"
+  },  
   status: {
     type: Boolean,
     default: true,

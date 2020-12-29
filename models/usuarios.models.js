@@ -10,11 +10,12 @@ const UsuarioSchema = Schema({
   },
   password: {
     type: String,
-    required: true,
+    default: '123456',
+    // required: true,
   },
   cedula: {
     type: String,
-    required: true,
+    // required: true,
   },
   celular: {
     type: String,
@@ -35,7 +36,7 @@ const UsuarioSchema = Schema({
   },
   direccion: {
     type: String,
-    required: true,
+    // required: true,
   },
   programa: {
     type: String,

@@ -13,7 +13,7 @@ const getUsuarios = async (req, res) => {
   let limite = Number(req.query.limite) || 10;
 
   const [usuarios, total] = await Promise.all([
-    Client.find({ status: true }).limit(limite).skip(desde),
+    Client.find({ }).limit(limite).skip(desde),
     Client.countDocuments(),
   ]);
 

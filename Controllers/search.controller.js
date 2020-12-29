@@ -44,7 +44,8 @@ const getUnidadEjecutora = async (req, res) => {
   });
 };
 
-const getProyectosUnidadEjecutora = async (req, res) => {
+const getProyectosUnidadEjecutora = async (req, res) => {  
+
   const termino = req.params.termino;
   const proyectos = await Proyecto.find({name: termino});
   res.json({

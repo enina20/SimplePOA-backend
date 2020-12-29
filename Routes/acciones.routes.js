@@ -1,5 +1,5 @@
 /* 
-    Path: /api/unidades
+    Path: /api/acciones
 */
 
 const { Router } = require("express");
@@ -11,11 +11,13 @@ const {
   createAcciones,
   updateAcciones,
   deleteAcciones,
+  getAccionesUnidadEjecutora
 } = require("../Controllers/acciones.controller");
 
 const router = Router();
 
 router.get("/", getAcciones);
+router.get("/unidad/:termino",  getAccionesUnidadEjecutora);
 
 router.post(
   "/",

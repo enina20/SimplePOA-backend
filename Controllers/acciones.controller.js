@@ -1,8 +1,24 @@
 const { response } = require("express");
 const Accion = require("../models/accion.models");
 
-const getAcciones = async (req, res) => {
-  const acciones = await Accion.find();
+const getAcciones = async (req, res) => { 
+
+  const [acciones, total] = await Promise.all([
+    Accion.find({ }),
+    Accion.countDocuments(),
+  ]);
+
+  res.json({
+    ok: true,
+    acciones,
+    total
+  });
+};
+
+const getAccionesUnidadEjecutora = async (req, res) => { 
+
+  const termino = req.params.termino;
+  const acciones = await Accion.find({unidad: termino})
   res.json({
     ok: true,
     acciones,
@@ -28,11 +44,12 @@ const createAcciones = async (req, res = response) => {
   }
 };
 
+
+
 const updateAcciones = async (req, res = response) => {
   const Id = req.params.id;
-
   try {
-    const accionDB = await Proyecto.findById(Id);
+    const accionDB = await Accion.findById(Id);
     if (!accionDB) {
       return res.status(404).json({
         ok: false,
@@ -43,7 +60,7 @@ const updateAcciones = async (req, res = response) => {
     // Unidad update
     const fields = req.body;
 
-    const updatedAccion = await Proyecto.findByIdAndUpdate(Id, fields, {
+    const updatedAccion = await Accion.findByIdAndUpdate(Id, fields, {
       new: true,
     });
 
@@ -90,4 +107,5 @@ module.exports = {
   createAcciones,
   updateAcciones,
   deleteAcciones,
+  getAccionesUnidadEjecutora
 };
